@@ -1,85 +1,108 @@
-BuildUnion
+# BuildUnion
 
-A BuildUnion a Messadock rendszer „városa”: közösségek, projektek, csapatok, vállalkozások és együttműködő terek számára.
-Ez képezi a Messadock felhasználói világának második rétegét — a Dock személyes rétege fölött.
+**BuildUnion is a system for operational truth in construction.**
+BuildUnion is a system-level architecture — not a single AI model.
+AI engines are used as constrained reasoning components within the system.
 
-🎯 Cél
 
-A BuildUnion célja:
+It is designed to reduce uncertainty in complex projects by ensuring that decisions are based on
+verifiable, project-specific information — not assumptions or generic AI output.
 
-közösségi és projektalapú együttműködés támogatása,
+BuildUnion was shaped by real construction workflows in the Greater Toronto Area,
+where information errors translate directly into delays, cost overruns, and compliance risks.
 
-vizuális és szervezési tér biztosítása személyes és üzleti projektekhez,
+---
 
-város-metaforán alapuló rendszer, ahol minden felhasználónak saját helyei, terei, projektjei vannak.
+## Core Principle
 
-A BuildUnion a Dock fölött helyezkedik el mint egy város a lakás fölött.
+BuildUnion does not replace professional judgment.  
+It exists to **protect it**.
 
-🏙️ Fő elemek (terv)
-1. Közösségi Tér (Community Zone)
+The system is built to support decision-makers with clear, traceable context,
+while final responsibility always remains with qualified professionals.
 
-Projektek, csapatok,  szervezetek gyűjtőhelye.
+---
 
-Dashboard a közös feladatokról.
+## How BuildUnion Works
 
-Vizualizált tér, ahol a felhasználók saját pozíciójukat is látják.
+BuildUnion uses a **dual-engine architecture** combined with
+**Retrieval-Augmented Generation (RAG)**.
 
-2. Házak és Helyek
+### Engine A — Retrieval & Context
+- Retrieves information from:
+  - project-specific documents
+  - approved technical materials
+  - official regulations and codes
+- Handles versioning, relevance, and access control
+- Separates project data from regulatory sources
 
-Olyan területek, amelyek a projektekhez kapcsolódnak:
+### Engine B — AI Reasoning
+- Uses AI reasoning engines (such as **Gemini 3**) to interpret retrieved information
+- The model receives **only retrieved evidence**, not general world knowledge
+- AI output is grounded in source material, not model memory
 
-projekt „épületek”,
+> If the system cannot retrieve relevant evidence, it does not fabricate an answer.
 
-csapat irodák,
+---
 
-vállalkozási helyiségek,
+## Truth Standard (Non-Negotiable)
 
-erőforrás-tárak, archívumok.
+BuildUnion enforces the following invariants:
 
-3. Kapcsolódás a Messadockkal
+- **No evidence → no claim**
+- Every answer must include **explicit citations**
+- Uncertainty and unknowns must be stated clearly
+- AI reasoning is always constrained by retrieved sources
+- All interactions are logged for auditability
 
-A két rendszer egymást kiegészítve működik:
+These rules are enforced at the system level, not left to prompt quality.
 
-Messadock = személyes Dock / saját világ
+---
 
-BuildUnion = város / közösségi tér / közös projektek tere
+## Output Contract
 
-A Messadock Orb és UI elemek hivatkozhatnak BuildUnion helyekre.
+All system responses follow a structured format:
 
-🧱 Repo felépítés (terv)
+```json
+{
+  "answer": "string",
+  "citations": [
+    {
+      "source_type": "project_file | regulation",
+      "doc_id": "string",
+      "title": "string",
+      "version_or_date": "string",
+      "location": "page / section",
+      "quote": "optional excerpt"
+    }
+  ],
+  "unknowns": ["string"],
+  "assumptions": ["string"],
+  "recommended_next_checks": ["string"],
+  "confidence": "low | medium | high"
+}
+Responses without citations are rejected by policy.
 
-A BuildUnion repóban a következő mappák jelennek meg fokozatosan:
+What BuildUnion Is Not
+Not a generic chatbot
 
-docs/ – leírások, architektúra
+Not an autonomous decision-maker
 
-overview.md – összkép a BuildUnion világáról
+Not a replacement for licensed review or regulatory authority
 
-architecture.md – technikai felépítés
+Not a system that guarantees “100% accuracy” or “zero hallucinations”
 
-components/ – UI és funkció modulok
+BuildUnion is intentionally designed to minimize risk — not to overpromise.
 
-mockups/ – prototípusok, vizuális tervek
+Responsibility & Compliance
+BuildUnion supports high operational accuracy through structured retrieval and reasoning,
+but final responsibility for interpretation, compliance, and execution
+always remains with human professionals.
 
-🔗 Kapcsolat a Messadock repóval
+This boundary is explicit and intentional.
 
-A BuildUnion a Messadock tágabb világát szolgálja:
+Status
+This repository defines the foundational architecture and truth standard for BuildUnion.
 
-a Dock mint „lakás”,
-
-a BuildUnion mint „város”,
-
-Messa AI pedig a város és a lakás közötti központi koordinátor.
-
-Ezek együtt alkotják a teljes Messa-rendszer architektúrát.
-
-📅 Állapot
-
-2025-12-xx – első változat
-
-BuildUnion repó létrehozva
-
-README.md elkészítve
-
-ChatGPT-GitHub kapcsolat beállítva
-
-Következő lépés: docs/ mappa létrehozása
+Implementation is structured to ensure that system behavior
+matches the claims made to users — technically, legally, and ethically.
